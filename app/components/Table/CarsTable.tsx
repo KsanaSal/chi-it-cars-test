@@ -2,6 +2,7 @@
 import { ICar } from "@/app/models/car.interface";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { useEffect, useState } from "react";
+import DropDown from "../DropDown/DropDown";
 
 interface IProps {
     color: string;
@@ -11,6 +12,8 @@ interface IProps {
     endYear: string;
     vin: string;
     available: string;
+    startPrice: string;
+    endPrice: string;
 }
 
 //     Company
@@ -30,6 +33,8 @@ const CarsTable = ({
     endYear,
     vin,
     available,
+    startPrice,
+    endPrice,
 }: IProps) => {
     const [cars, setCars] = useState<ICar[]>([]);
 
@@ -62,7 +67,11 @@ const CarsTable = ({
                         endYear === "") &&
                     car.car_vin.toLowerCase().includes(vin.toLowerCase()) &&
                     (available === "All" ||
-                        car.availability === (available === "Available"))
+                        car.availability === (available === "Available")) &&
+                    (parseFloat(car.price.slice(1)) >= parseInt(startPrice) ||
+                        startPrice === "") &&
+                    (parseFloat(car.price.slice(1)) <= parseInt(endPrice) ||
+                        endPrice === "")
             );
             console.log(filteredCars);
             console.log(company);
@@ -70,7 +79,18 @@ const CarsTable = ({
         } else {
             setFilterCars(cars);
         }
-    }, [color, cars, company, model, vin, startYear, endYear, available]);
+    }, [
+        color,
+        cars,
+        company,
+        model,
+        vin,
+        startYear,
+        endYear,
+        available,
+        startPrice,
+        endPrice,
+    ]);
 
     return (
         <div className="px-4 sm:px-6 lg:px-8">
@@ -194,15 +214,7 @@ const CarsTable = ({
                                                     )}
                                                 </td>
                                                 <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                                    <a
-                                                        href="#"
-                                                        className="text-indigo-600 hover:text-indigo-900"
-                                                    >
-                                                        Edit
-                                                        <span className="sr-only">
-                                                            , {car.car}
-                                                        </span>
-                                                    </a>
+                                                    <DropDown />
                                                 </td>
                                             </tr>
                                         ))}

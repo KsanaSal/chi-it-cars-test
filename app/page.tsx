@@ -13,6 +13,8 @@ export default function Home() {
     const [selectEndYear, setSelectEndYear] = useState("");
     const [selectVin, setSelectVin] = useState("");
     const [selectAvailable, setSelectAvailable] = useState("All");
+    const [selectStartPrice, setSelectStartPrice] = useState("");
+    const [selectEndPrice, setSelectEndPrice] = useState("");
 
     return (
         <main className="px-5 py-10 flex flex-col gap-5">
@@ -50,7 +52,6 @@ export default function Home() {
                         value={selectAvailable}
                         onChange={(e) => setSelectAvailable(e.target.value)}
                         className="mt-2 block w-40 h-10 shadow-sm rounded-md border-0 py-2 pl-3 pr-10 text-gray-700 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        defaultValue="All"
                     >
                         <option>All</option>
                         <option>Available</option>
@@ -69,6 +70,16 @@ export default function Home() {
                     label="End year"
                     placeholder="end year"
                 />
+                <Search
+                    searchHandler={setSelectStartPrice}
+                    label="Start price"
+                    placeholder="start price"
+                />
+                <Search
+                    searchHandler={setSelectEndPrice}
+                    label="End price"
+                    placeholder="end price"
+                />
             </div>
             <CarsTable
                 color={selectColor}
@@ -78,6 +89,8 @@ export default function Home() {
                 endYear={selectEndYear}
                 vin={selectVin}
                 available={selectAvailable}
+                startPrice={selectStartPrice}
+                endPrice={selectEndPrice}
             />
             <Pagination />
         </main>
