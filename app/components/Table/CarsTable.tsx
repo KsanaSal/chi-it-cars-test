@@ -1,13 +1,16 @@
 "use client";
 import { ICar } from "@/app/models/car.interface";
+import { CheckIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { useEffect, useState } from "react";
 
 interface IProps {
     color: string;
     company: string;
     model: string;
-    year: string;
+    startYear: string;
+    endYear: string;
     vin: string;
+    available: string;
 }
 
 //     Company
@@ -19,11 +22,18 @@ interface IProps {
 //   - Availability
 //   - Actions columns
 
-const CarsTable = ({ color, company, model, year, vin }: IProps) => {
+const CarsTable = ({
+    color,
+    company,
+    model,
+    startYear,
+    endYear,
+    vin,
+    available,
+}: IProps) => {
     const [cars, setCars] = useState<ICar[]>([]);
 
     const [filterCars, setFilterCars] = useState<ICar[]>([]);
-    console.log(filterCars);
     // setFilterCars(cars);
 
     useEffect(() => {
@@ -38,23 +48,29 @@ const CarsTable = ({ color, company, model, year, vin }: IProps) => {
     }, []);
 
     useEffect(() => {
-        console.log(cars);
         if (cars.length > 0) {
-            const test = cars.filter(
+            const filteredCars = cars.filter(
                 (car) =>
                     car.car_color.toLowerCase().includes(color.toLowerCase()) &&
                     car.car.toLowerCase().includes(company.toLowerCase()) &&
                     car.car_model.toLowerCase().includes(model.toLowerCase()) &&
-                    car.car_model_year.toString().includes(year) &&
-                    car.car_vin.toLowerCase().includes(vin.toLowerCase())
+                    (car.car_model_year >= parseInt(startYear) ||
+                        startYear.length !== 4 ||
+                        startYear === "") &&
+                    (car.car_model_year <= parseInt(endYear) ||
+                        endYear.length !== 4 ||
+                        endYear === "") &&
+                    car.car_vin.toLowerCase().includes(vin.toLowerCase()) &&
+                    (available === "All" ||
+                        car.availability === (available === "Available"))
             );
-            console.log(test);
+            console.log(filteredCars);
             console.log(company);
-            setFilterCars(test);
+            setFilterCars(filteredCars);
         } else {
             setFilterCars(cars);
         }
-    }, [color, cars, company, model, year, vin]);
+    }, [color, cars, company, model, vin, startYear, endYear, available]);
 
     return (
         <div className="px-4 sm:px-6 lg:px-8">
@@ -82,7 +98,7 @@ const CarsTable = ({ color, company, model, year, vin }: IProps) => {
                     <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                         <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
                             <table className="min-w-full divide-y divide-gray-300">
-                                <thead className="bg-gray-50">
+                                <thead className="bg-lime-50">
                                     <tr>
                                         <th
                                             scope="col"
@@ -149,25 +165,33 @@ const CarsTable = ({ color, company, model, year, vin }: IProps) => {
                                                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                     {car.car}
                                                 </td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
                                                     {car.car_model}
                                                 </td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
                                                     {car.car_vin}
                                                 </td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
                                                     {car.car_color}
                                                 </td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
                                                     {car.car_model_year}
                                                 </td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
                                                     {car.price}
                                                 </td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                    {car.availability
-                                                        ? "+"
-                                                        : "-"}
+                                                <td className="whitespace-nowrap px-3 py-4 text-sm flex justify-center">
+                                                    {car.availability ? (
+                                                        <CheckIcon
+                                                            className="h-5 w-5 text-green-600"
+                                                            aria-hidden="true"
+                                                        />
+                                                    ) : (
+                                                        <XMarkIcon
+                                                            className="h-5 w-5 text-red-600"
+                                                            aria-hidden="true"
+                                                        />
+                                                    )}
                                                 </td>
                                                 <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                                     <a

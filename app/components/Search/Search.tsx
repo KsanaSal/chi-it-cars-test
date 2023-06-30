@@ -1,4 +1,5 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import { ChangeEvent, useState } from "react";
 
 interface IProps {
     searchHandler: (e: string) => void;
@@ -7,8 +8,24 @@ interface IProps {
 }
 
 const Search = ({ searchHandler, label, placeholder }: IProps) => {
+    const [searchValue, setSearchValue] = useState<string | number>("");
+
+    const handleInputChange = (ev: ChangeEvent<HTMLInputElement>) => {
+        const inputValue = ev.target.value;
+        if (label.toLowerCase().includes("year")) {
+            console.log(inputValue);
+            if (/^\d*$/.test(inputValue)) {
+                setSearchValue(inputValue);
+                searchHandler(inputValue);
+            }
+        } else {
+            setSearchValue(inputValue);
+            searchHandler(inputValue);
+        }
+    };
+
     return (
-        <div className="w-40">
+        <div>
             <label
                 htmlFor="search"
                 className="block text-sm font-medium leading-6 text-gray-900"
@@ -23,11 +40,12 @@ const Search = ({ searchHandler, label, placeholder }: IProps) => {
                     />
                 </div>
                 <input
-                    onChange={(e) => searchHandler(e.target.value)}
+                    onChange={handleInputChange}
                     type="search"
+                    value={searchValue}
                     name="search"
                     id="search"
-                    className="block w-full rounded-md border-0 py-1.5 pl-10 pr-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-40 h-10 rounded-md border-0 py-2 pl-10 pr-2 text-gray-700 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     placeholder={placeholder}
                 />
             </div>
