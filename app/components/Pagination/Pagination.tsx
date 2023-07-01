@@ -60,13 +60,14 @@ const Pagination = ({
                 <button
                     onClick={() => setCurrentPage(currentPage - 1)}
                     disabled={currentPage <= 1}
-                    className="inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                    className="inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium  hover:border-gray-300"
                 >
                     <ArrowLongLeftIcon
-                        className="mr-3 h-5 w-5 text-gray-400"
+                        className={`${
+                            currentPage <= 1 ? "text-lime-300" : "text-lime-700"
+                        } mr-3 h-6 w-6 text-gray-400`}
                         aria-hidden="true"
                     />
-                    Previous
                 </button>
             </div>
             <div className="hidden md:-mt-px md:flex">
@@ -78,10 +79,10 @@ const Pagination = ({
                                 ? setCurrentPage(pageNumber)
                                 : null
                         }
-                        className={`inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium ${
+                        className={`inline-flex items-center border-t-2 px-4 pt-4 text-base font-medium ${
                             currentPage === pageNumber
-                                ? "border-indigo-500 text-indigo-600"
-                                : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                                ? "border-indigo-500 text-indigo-700 font-bold"
+                                : "border-transparent text-gray-300 hover:text-gray-500 hover:border-gray-300"
                         }`}
                         aria-current={
                             currentPage === pageNumber ? "page" : undefined
@@ -91,55 +92,18 @@ const Pagination = ({
                     </button>
                 ))}
             </div>
-            {/* <div className="hidden md:-mt-px md:flex">
-                <button className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
-                    1
-                </button>
-
-                <a
-                    href="#"
-                    className="inline-flex items-center border-t-2 border-indigo-500 px-4 pt-4 text-sm font-medium text-indigo-600"
-                    aria-current="page"
-                >
-                    2
-                </a>
-                <a
-                    href="#"
-                    className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                >
-                    3
-                </a>
-                <span className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500">
-                    ...
-                </span>
-                <a
-                    href="#"
-                    className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                >
-                    8
-                </a>
-                <a
-                    href="#"
-                    className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                >
-                    9
-                </a>
-                <a
-                    href="#"
-                    className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                >
-                    10
-                </a>
-            </div> */}
             <div className="-mt-px flex w-0 flex-1">
                 <button
                     onClick={() => setCurrentPage(currentPage + 1)}
                     disabled={currentPage >= totalPages}
-                    className="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                    className="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium hover:border-gray-300"
                 >
-                    Next
                     <ArrowLongRightIcon
-                        className="ml-3 h-5 w-5 text-gray-400"
+                        className={`${
+                            currentPage >= totalPages
+                                ? "text-lime-300"
+                                : "text-lime-700"
+                        } mr-3 h-6 w-6 text-gray-400`}
                         aria-hidden="true"
                     />
                 </button>
