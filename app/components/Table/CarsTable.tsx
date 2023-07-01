@@ -3,6 +3,7 @@ import { ICar } from "@/app/models/car.interface";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { useEffect, useState } from "react";
 import DropDown from "../DropDown/DropDown";
+import Pagination from "../Pagination/Pagination";
 
 interface IProps {
     color: string;
@@ -41,6 +42,15 @@ const CarsTable = ({
     const [filterCars, setFilterCars] = useState<ICar[]>([]);
     // setFilterCars(cars);
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const carsPerPage = 7;
+    const totalCars = filterCars.length;
+    const totalPages = Math.ceil(totalCars / carsPerPage);
+    const indexOfLastCar = currentPage * carsPerPage;
+    const indexOfFirstCar = indexOfLastCar - carsPerPage;
+    const currentCars = filterCars.slice(indexOfFirstCar, indexOfLastCar);
+    console.log(currentCars);
+
     useEffect(() => {
         const getData = async () => {
             fetch("api/get-cars")
@@ -76,6 +86,7 @@ const CarsTable = ({
             console.log(filteredCars);
             console.log(company);
             setFilterCars(filteredCars);
+            setCurrentPage(1);
         } else {
             setFilterCars(cars);
         }
@@ -179,8 +190,8 @@ const CarsTable = ({
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200 bg-white">
-                                    {filterCars.length > 0 &&
-                                        filterCars.map((car) => (
+                                    {currentCars.length > 0 &&
+                                        currentCars.map((car) => (
                                             <tr key={car.id}>
                                                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                     {car.car}
@@ -224,6 +235,13 @@ const CarsTable = ({
                     </div>
                 </div>
             </div>
+            {totalPages > 1 && (
+                <Pagination
+                    setCurrentPage={setCurrentPage}
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                />
+            )}
         </div>
     );
 };

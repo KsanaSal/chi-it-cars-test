@@ -2,10 +2,6 @@ import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 
-function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-}
-
 const DropDown = () => {
     return (
         <Menu as="div" className="relative inline-block text-left">
@@ -28,36 +24,32 @@ const DropDown = () => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
             >
-                <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Menu.Items className="absolute right-0 z-10 mt-2 w-20 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
                         <Menu.Item>
                             {({ active }) => (
-                                <a
-                                    href="#"
-                                    className={classNames(
+                                <button
+                                    className={`${
                                         active
                                             ? "bg-gray-100 text-gray-900"
-                                            : "text-gray-700",
-                                        "block px-4 py-2 text-sm"
-                                    )}
+                                            : "text-gray-700"
+                                    } block px-4 py-2 text-sm`}
                                 >
                                     Edit
-                                </a>
+                                </button>
                             )}
                         </Menu.Item>
                         <Menu.Item>
                             {({ active }) => (
-                                <a
-                                    href="#"
-                                    className={classNames(
+                                <button
+                                    className={`${
                                         active
                                             ? "bg-gray-100 text-gray-900"
-                                            : "text-gray-700",
-                                        "block px-4 py-2 text-sm"
-                                    )}
+                                            : "text-gray-700"
+                                    } block px-4 py-2 text-sm`}
                                 >
                                     Delete
-                                </a>
+                                </button>
                             )}
                         </Menu.Item>
                     </div>
