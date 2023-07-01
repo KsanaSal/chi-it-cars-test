@@ -8,9 +8,17 @@ interface IProps {
     setCurrentPage: (e: number) => void;
     currentPage: number;
     totalPages: number;
+    setCarsPerPage: (e: number) => void;
+    carsPerPage: number;
 }
 
-const Pagination = ({ setCurrentPage, currentPage, totalPages }: IProps) => {
+const Pagination = ({
+    setCurrentPage,
+    currentPage,
+    totalPages,
+    setCarsPerPage,
+    carsPerPage,
+}: IProps) => {
     const [selectAvailable, setSelectAvailable] = useState("All");
     const getPageNumbers = () => {
         const pageNumbers = [];
@@ -139,16 +147,19 @@ const Pagination = ({ setCurrentPage, currentPage, totalPages }: IProps) => {
             <div>
                 <select
                     name="availability"
-                    value={selectAvailable}
-                    onChange={(e) => setSelectAvailable(e.target.value)}
+                    value={carsPerPage}
+                    onChange={(e) => {
+                        console.log(e.target.value);
+                        setCarsPerPage(parseInt(e.target.value));
+                    }}
                     className="mt-2 block w-40 h-10 shadow-sm rounded-md border-0 py-2 pl-3 pr-10 text-gray-700 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 >
-                    <option>10 per page</option>
-                    <option>20 per page</option>
-                    <option>30 per page</option>
-                    <option>50 per page</option>
-                    <option>70 per page</option>
-                    <option>100 per page</option>
+                    <option value={10}>10 per page</option>
+                    <option value={20}>20 per page</option>
+                    <option value={30}>30 per page</option>
+                    <option value={50}>50 per page</option>
+                    <option value={70}>70 per page</option>
+                    <option value={100}>100 per page</option>
                 </select>
             </div>
         </nav>

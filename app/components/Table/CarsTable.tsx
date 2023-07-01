@@ -43,7 +43,7 @@ const CarsTable = ({
     // setFilterCars(cars);
 
     const [currentPage, setCurrentPage] = useState(1);
-    const carsPerPage = 7;
+    const [carsPerPage, setCarsPerPage] = useState(10);
     const totalCars = filterCars.length;
     const totalPages = Math.ceil(totalCars / carsPerPage);
     const indexOfLastCar = currentPage * carsPerPage;
@@ -110,10 +110,6 @@ const CarsTable = ({
                     <h1 className="text-3xl font-semibold leading-9 text-gray-900">
                         Cars
                     </h1>
-                    {/* <p className="mt-2 text-sm text-gray-700">
-                        A list of all the users in your account including their
-                        name, title, email and role.
-                    </p> */}
                 </div>
                 <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                     <button
@@ -179,14 +175,6 @@ const CarsTable = ({
                                         >
                                             Actions
                                         </th>
-                                        {/* <th
-                                            scope="col"
-                                            className="relative py-3.5 pl-3 pr-4 sm:pr-6"
-                                        >
-                                            <span className="sr-only">
-                                                Actions
-                                            </span>
-                                        </th> */}
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200 bg-white">
@@ -240,6 +228,8 @@ const CarsTable = ({
                     setCurrentPage={setCurrentPage}
                     currentPage={currentPage}
                     totalPages={totalPages}
+                    setCarsPerPage={setCarsPerPage}
+                    carsPerPage={carsPerPage}
                 />
             )}
         </div>
