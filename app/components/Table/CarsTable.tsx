@@ -62,6 +62,7 @@ const CarsTable = ({
         price: "$2167.72",
         availability: true,
     });
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
     const deleteHandler = (carCard: ICar) => {
         console.log("delete", carCard);
@@ -259,7 +260,7 @@ const CarsTable = ({
                     carsPerPage={carsPerPage}
                 />
             )}
-            <DeleteModal />
+            <DeleteModal car={currentCar} isModalOpen={isDeleteModalOpen} />
         </div>
     );
 };

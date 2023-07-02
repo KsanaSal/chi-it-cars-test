@@ -4,9 +4,17 @@ import {
     ExclamationTriangleIcon,
     XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { ICar } from "@/app/models/car.interface";
 
-const DeleteModal = ({ car, isModalOpen }) => {
-    const [open, setOpen] = useState(true);
+interface IProps {
+    car: ICar;
+    isModalOpen: boolean;
+}
+
+const DeleteModal = ({ car, isModalOpen }: IProps) => {
+    const [open, setOpen] = useState(isModalOpen);
+    console.log(car);
+    console.log(isModalOpen);
 
     return (
         <Transition.Root show={open} as={Fragment}>
