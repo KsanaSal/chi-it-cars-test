@@ -65,9 +65,12 @@ const CarsTable = ({
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
     const deleteHandler = (carCard: ICar) => {
+        setCurrentCar(carCard);
+        setIsDeleteModalOpen(true);
         console.log("delete", carCard);
     };
     const editHandler = (carCard: ICar) => {
+        setCurrentCar(carCard);
         console.log("edit", carCard);
     };
 
@@ -260,7 +263,11 @@ const CarsTable = ({
                     carsPerPage={carsPerPage}
                 />
             )}
-            <DeleteModal car={currentCar} isModalOpen={isDeleteModalOpen} />
+            <DeleteModal
+                car={currentCar}
+                isModalOpen={isDeleteModalOpen}
+                setIsDeleteModalOpen={setIsDeleteModalOpen}
+            />
         </div>
     );
 };

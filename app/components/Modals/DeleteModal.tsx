@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import {
     ExclamationTriangleIcon,
@@ -9,16 +9,31 @@ import { ICar } from "@/app/models/car.interface";
 interface IProps {
     car: ICar;
     isModalOpen: boolean;
+    setIsDeleteModalOpen: (e: boolean) => void;
 }
 
-const DeleteModal = ({ car, isModalOpen }: IProps) => {
+const DeleteModal = ({ car, isModalOpen, setIsDeleteModalOpen }: IProps) => {
     const [open, setOpen] = useState(isModalOpen);
     console.log(car);
     console.log(isModalOpen);
+    console.log(open);
+
+    const hideModal = () => {
+        setIsDeleteModalOpen(false);
+        setOpen(false);
+    };
+
+    useEffect(() => {
+        setOpen(isModalOpen);
+    }, [isModalOpen]);
 
     return (
         <Transition.Root show={open} as={Fragment}>
-            <Dialog as="div" className="relative z-10" onClose={setOpen}>
+            <Dialog
+                as="div"
+                className="relative z-10"
+                onClose={() => hideModal()}
+            >
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -49,7 +64,7 @@ const DeleteModal = ({ car, isModalOpen }: IProps) => {
                                         className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                         onClick={() => {
                                             console.log("first");
-                                            setOpen(false);
+                                            hideModal();
                                         }}
                                     >
                                         {/* <span className="sr-only">Close</span> */}
@@ -89,14 +104,14 @@ const DeleteModal = ({ car, isModalOpen }: IProps) => {
                                     <button
                                         type="button"
                                         className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                                        onClick={() => setOpen(false)}
+                                        onClick={() => hideModal()}
                                     >
                                         Cancel
                                     </button>
                                     <button
                                         type="button"
                                         className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                                        onClick={() => setOpen(false)}
+                                        onClick={() => hideModal()}
                                     >
                                         Delete
                                     </button>
