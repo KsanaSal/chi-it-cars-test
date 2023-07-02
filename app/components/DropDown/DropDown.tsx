@@ -13,7 +13,7 @@ const DropDown = ({ deleteHandler, editHandler, carCard }: IProps) => {
     return (
         <Menu as="div" className="relative inline-block text-left">
             <div>
-                <Menu.Button className="flex items-center rounded-full bg-lime-200 text-gray-500 hover:text-gray-900 hover:bg-lime-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
+                <Menu.Button className="flex items-center rounded-full bg-lime-50 text-gray-500 hover:text-gray-900 hover:bg-lime-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
                     <span className="sr-only">Open options</span>
                     <EllipsisVerticalIcon
                         className="h-5 w-5"

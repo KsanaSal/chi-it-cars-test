@@ -18,15 +18,6 @@ interface IProps {
     endPrice: string;
 }
 
-//     Company
-//   - Model
-//   - VIN
-//   - Color
-//   - Year
-//   - Price
-//   - Availability
-//   - Actions columns
-
 const CarsTable = ({
     color,
     company,
@@ -41,7 +32,6 @@ const CarsTable = ({
     const [cars, setCars] = useState<ICar[]>([]);
 
     const [filterCars, setFilterCars] = useState<ICar[]>([]);
-    // setFilterCars(cars);
 
     const [currentPage, setCurrentPage] = useState(1);
     const [carsPerPage, setCarsPerPage] = useState(10);
@@ -50,7 +40,6 @@ const CarsTable = ({
     const indexOfLastCar = currentPage * carsPerPage;
     const indexOfFirstCar = indexOfLastCar - carsPerPage;
     const currentCars = filterCars.slice(indexOfFirstCar, indexOfLastCar);
-    console.log(currentCars);
 
     const [currentCar, setCurrentCar] = useState({
         id: 154,
@@ -67,21 +56,21 @@ const CarsTable = ({
     const deleteHandler = (carCard: ICar) => {
         setCurrentCar(carCard);
         setIsDeleteModalOpen(true);
-        console.log("delete", carCard);
     };
     const editHandler = (carCard: ICar) => {
         setCurrentCar(carCard);
         console.log("edit", carCard);
     };
 
+    const getData = async () => {
+        fetch("api/cars")
+            .then((res) => res.json())
+            .then((res) => {
+                setCars(res);
+            });
+    };
+
     useEffect(() => {
-        const getData = async () => {
-            fetch("api/get-cars")
-                .then((res) => res.json())
-                .then((res) => {
-                    setCars(res);
-                });
-        };
         getData();
     }, []);
 
@@ -267,6 +256,7 @@ const CarsTable = ({
                 car={currentCar}
                 isModalOpen={isDeleteModalOpen}
                 setIsDeleteModalOpen={setIsDeleteModalOpen}
+                getData={getData}
             />
         </div>
     );

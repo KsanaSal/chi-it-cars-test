@@ -10,13 +10,16 @@ interface IProps {
     car: ICar;
     isModalOpen: boolean;
     setIsDeleteModalOpen: (e: boolean) => void;
+    getData: () => void;
 }
 
-const DeleteModal = ({ car, isModalOpen, setIsDeleteModalOpen }: IProps) => {
+const DeleteModal = ({
+    car,
+    isModalOpen,
+    setIsDeleteModalOpen,
+    getData,
+}: IProps) => {
     const [open, setOpen] = useState(isModalOpen);
-    console.log(car);
-    console.log(isModalOpen);
-    console.log(open);
 
     const hideModal = () => {
         setIsDeleteModalOpen(false);
@@ -26,6 +29,23 @@ const DeleteModal = ({ car, isModalOpen, setIsDeleteModalOpen }: IProps) => {
     useEffect(() => {
         setOpen(isModalOpen);
     }, [isModalOpen]);
+
+    const handleDelete = async () => {
+        try {
+            const response = await fetch(`/api/cars?id=${car.id}`, {
+                method: "DELETE",
+            });
+
+            if (response.ok) {
+                getData();
+                hideModal();
+            } else {
+                console.error("Something went wrong");
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -61,13 +81,11 @@ const DeleteModal = ({ car, isModalOpen, setIsDeleteModalOpen }: IProps) => {
                                 <div className="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
                                     <button
                                         type="button"
-                                        className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                        className="rounded-md bg-white text-gray-400 hover:text-gray-500"
                                         onClick={() => {
-                                            console.log("first");
                                             hideModal();
                                         }}
                                     >
-                                        {/* <span className="sr-only">Close</span> */}
                                         <XMarkIcon
                                             className="h-6 w-6"
                                             aria-hidden="true"
@@ -86,32 +104,68 @@ const DeleteModal = ({ car, isModalOpen, setIsDeleteModalOpen }: IProps) => {
                                             as="h3"
                                             className="text-base font-semibold leading-6 text-gray-900"
                                         >
-                                            Deactivate account
+                                            Delete car
                                         </Dialog.Title>
                                         <div className="mt-2">
-                                            <p className="text-sm text-gray-500">
-                                                Are you sure you want to
-                                                deactivate your account? All of
-                                                your data will be permanently
-                                                removed from our servers
-                                                forever. This action cannot be
-                                                undone.
+                                            <p>
+                                                Are you sure you want to delete
+                                                this car?
                                             </p>
+                                            <ul className="text-sm text-gray-500">
+                                                <li className="flex">
+                                                    <div className="w-20">
+                                                        Company:
+                                                    </div>
+                                                    <div>{car.car}</div>
+                                                </li>
+                                                <li className="flex">
+                                                    <div className="w-20">
+                                                        Model:
+                                                    </div>
+                                                    <div>{car.car_model}</div>
+                                                </li>
+                                                <li className="flex">
+                                                    <div className="w-20">
+                                                        VIN:
+                                                    </div>
+                                                    <div>{car.car_vin}</div>
+                                                </li>
+                                                <li className="flex">
+                                                    <div className="w-20">
+                                                        Color:
+                                                    </div>
+                                                    <div>{car.car_color}</div>
+                                                </li>
+                                                <li className="flex">
+                                                    <div className="w-20">
+                                                        Year:
+                                                    </div>
+                                                    <div>
+                                                        {car.car_model_year}
+                                                    </div>
+                                                </li>
+                                                <li className="flex">
+                                                    <div className="w-20">
+                                                        Price:
+                                                    </div>
+                                                    <div>{car.price}</div>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="mt-5 sm:mt-4 flex justify-end">
                                     <button
                                         type="button"
-                                        className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                                        className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-lime-300 hover:bg-lime-50 sm:mt-0 sm:w-auto"
                                         onClick={() => hideModal()}
                                     >
                                         Cancel
                                     </button>
                                     <button
                                         type="button"
-                                        className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                                        onClick={() => hideModal()}
+                                        className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-800 sm:ml-3 sm:w-auto"
+                                        onClick={() => handleDelete()}
                                     >
                                         Delete
                                     </button>
