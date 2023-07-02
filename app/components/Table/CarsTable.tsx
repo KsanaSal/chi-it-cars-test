@@ -3,6 +3,7 @@ import { ICar } from "@/app/models/car.interface";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { useEffect, useState } from "react";
 import DropDown from "../DropDown/DropDown";
+import DeleteModal from "../Modals/DeleteModal";
 import Pagination from "../Pagination/Pagination";
 
 interface IProps {
@@ -50,6 +51,24 @@ const CarsTable = ({
     const indexOfFirstCar = indexOfLastCar - carsPerPage;
     const currentCars = filterCars.slice(indexOfFirstCar, indexOfLastCar);
     console.log(currentCars);
+
+    const [currentCar, setCurrentCar] = useState({
+        id: 154,
+        car: "Chevrolet",
+        car_model: "TrailBlazer",
+        car_color: "Violet",
+        car_model_year: 2006,
+        car_vin: "JA32U2FUXFU470149",
+        price: "$2167.72",
+        availability: true,
+    });
+
+    const deleteHandler = (carCard: ICar) => {
+        console.log("delete", carCard);
+    };
+    const editHandler = (carCard: ICar) => {
+        console.log("edit", carCard);
+    };
 
     useEffect(() => {
         const getData = async () => {
@@ -213,7 +232,15 @@ const CarsTable = ({
                                                     )}
                                                 </td>
                                                 <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                                    <DropDown />
+                                                    <DropDown
+                                                        carCard={car}
+                                                        deleteHandler={
+                                                            deleteHandler
+                                                        }
+                                                        editHandler={
+                                                            editHandler
+                                                        }
+                                                    />
                                                 </td>
                                             </tr>
                                         ))}
@@ -232,6 +259,7 @@ const CarsTable = ({
                     carsPerPage={carsPerPage}
                 />
             )}
+            <DeleteModal />
         </div>
     );
 };

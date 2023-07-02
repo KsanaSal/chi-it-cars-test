@@ -1,8 +1,15 @@
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
+import { ICar } from "@/app/models/car.interface";
 
-const DropDown = () => {
+interface IProps {
+    deleteHandler: (carCard: ICar) => void;
+    editHandler: (carCard: ICar) => void;
+    carCard: ICar;
+}
+
+const DropDown = ({ deleteHandler, editHandler, carCard }: IProps) => {
     return (
         <Menu as="div" className="relative inline-block text-left">
             <div>
@@ -29,6 +36,7 @@ const DropDown = () => {
                         <Menu.Item>
                             {({ active }) => (
                                 <button
+                                    onClick={() => editHandler(carCard)}
                                     className={`${
                                         active
                                             ? "bg-lime-100 text-gray-900"
@@ -42,6 +50,7 @@ const DropDown = () => {
                         <Menu.Item>
                             {({ active }) => (
                                 <button
+                                    onClick={() => deleteHandler(carCard)}
                                     className={`${
                                         active
                                             ? "bg-lime-100 text-gray-900"
