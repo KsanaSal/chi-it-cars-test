@@ -53,7 +53,8 @@ const CarsTable = ({
         availability: true,
     });
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [isAddEditModalOpen, setIsAddEditModalOpen] = useState(false);
+    const [mode, setMode] = useState<"add" | "edit">("add");
 
     const deleteHandler = (carCard: ICar) => {
         setCurrentCar(carCard);
@@ -61,6 +62,8 @@ const CarsTable = ({
     };
     const editHandler = (carCard: ICar) => {
         setCurrentCar(carCard);
+        setIsAddEditModalOpen(true);
+        setMode("edit");
         console.log("edit", carCard);
     };
 
@@ -127,7 +130,10 @@ const CarsTable = ({
                 </div>
                 <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                     <button
-                        onClick={() => setIsAddModalOpen(true)}
+                        onClick={() => {
+                            setIsAddEditModalOpen(true);
+                            setMode("add");
+                        }}
                         type="button"
                         className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
@@ -263,9 +269,10 @@ const CarsTable = ({
             />
             <AddEditModal
                 car={currentCar}
-                isModalOpen={isAddModalOpen}
-                setIsModalOpen={setIsAddModalOpen}
+                isModalOpen={isAddEditModalOpen}
+                setIsModalOpen={setIsAddEditModalOpen}
                 getData={getData}
+                mode={mode}
             />
         </div>
     );

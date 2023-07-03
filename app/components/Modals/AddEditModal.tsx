@@ -11,9 +11,11 @@ interface IProps {
     isModalOpen: boolean;
     setIsModalOpen: (e: boolean) => void;
     getData: () => void;
+    mode: "add" | "edit";
 }
 
 const AddEditModal = ({
+    mode,
     car,
     isModalOpen,
     setIsModalOpen: setIsModalOpen,
@@ -27,6 +29,39 @@ const AddEditModal = ({
     const [carVIN, setCarVIN] = useState("");
     const [price, setPrice] = useState("");
     const [availability, setAvailability] = useState(false);
+
+    console.log(mode);
+    useEffect(() => {
+        console.log("first");
+        if (mode === "edit") {
+            setCarCompany(car.car);
+            setCarModel(car.car_model);
+            setCarColor(car.car_color);
+            setCarModelYear(car.car_model_year.toString());
+            setCarVIN(car.car_vin);
+            setPrice(car.price);
+            setAvailability(car.availability);
+        }
+    }, [
+        car.availability,
+        car.car,
+        car.car_color,
+        car.car_model,
+        car.car_model_year,
+        car.car_vin,
+        car.price,
+        mode,
+    ]);
+
+    const resetData = () => {
+        setCarCompany("");
+        setCarModel("");
+        setCarColor("");
+        setCarModelYear("");
+        setCarVIN("");
+        setPrice("");
+        setAvailability(false);
+    };
 
     const hideModal = () => {
         setIsModalOpen(false);
@@ -59,6 +94,7 @@ const AddEditModal = ({
 
             if (response.ok) {
                 getData();
+                resetData();
                 hideModal();
             } else {
                 console.error("Something went wrong");
@@ -72,6 +108,35 @@ const AddEditModal = ({
         const inputValue = ev.target.value;
         if (/^\d*$/.test(inputValue)) {
             setCarModelYear(inputValue);
+        }
+    };
+
+    const handleEdit = async (ev: FormEvent<HTMLFormElement>) => {
+        ev.preventDefault();
+        console.log("123");
+        try {
+            const response = await fetch("/api/cars", {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    id: car.id,
+                    car_color: carColor,
+                    price,
+                    availability,
+                }),
+            });
+
+            if (response.ok) {
+                getData();
+                resetData();
+                hideModal();
+            } else {
+                console.error("Something went wrong");
+            }
+        } catch (error) {
+            console.error(error);
         }
     };
 
@@ -126,16 +191,25 @@ const AddEditModal = ({
                                             as="h3"
                                             className="text-base font-semibold leading-6 text-gray-900"
                                         >
-                                            Add car
+                                            {mode === "edit"
+                                                ? "Edit car"
+                                                : "Add car"}
                                         </Dialog.Title>
                                         <div className="mt-2">
                                             <form
                                                 className="flex flex-col gap-3 w-[450px]"
-                                                onSubmit={handleAdd}
+                                                onSubmit={(e) =>
+                                                    mode === "edit"
+                                                        ? handleEdit(e)
+                                                        : handleAdd(e)
+                                                }
                                             >
                                                 <label className="flex gap-1 text-gray-900">
                                                     Car Company:
                                                     <input
+                                                        readOnly={
+                                                            mode === "edit"
+                                                        }
                                                         className="text-sm w-60 py-1 px-2 border border-gray-200 rounded-md placeholder:text-gray-400"
                                                         type="text"
                                                         value={carCompany}
@@ -150,6 +224,9 @@ const AddEditModal = ({
                                                 <label className="flex gap-1 text-gray-900">
                                                     Car Model:
                                                     <input
+                                                        readOnly={
+                                                            mode === "edit"
+                                                        }
                                                         className="text-sm w-60 py-1 px-2 border border-gray-200 rounded-md placeholder:text-gray-400"
                                                         type="text"
                                                         value={carModel}
@@ -178,6 +255,9 @@ const AddEditModal = ({
                                                 <label className="flex gap-1 text-gray-900">
                                                     Car Model Year:
                                                     <input
+                                                        readOnly={
+                                                            mode === "edit"
+                                                        }
                                                         className="text-sm w-60 py-1 px-2 border border-gray-200 rounded-md placeholder:text-gray-400"
                                                         type="text"
                                                         value={carModelYear}
@@ -190,6 +270,9 @@ const AddEditModal = ({
                                                 <label className="flex gap-1 text-gray-900">
                                                     Car VIN:
                                                     <input
+                                                        readOnly={
+                                                            mode === "edit"
+                                                        }
                                                         className="text-sm w-60 py-1 px-2 border border-gray-200 rounded-md placeholder:text-gray-400"
                                                         type="text"
                                                         value={carVIN}
@@ -233,9 +316,10 @@ const AddEditModal = ({
                                                     <button
                                                         type="button"
                                                         className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-lime-300 hover:bg-lime-50 sm:mt-0 sm:w-auto"
-                                                        onClick={() =>
-                                                            hideModal()
-                                                        }
+                                                        onClick={() => {
+                                                            hideModal();
+                                                            resetData();
+                                                        }}
                                                     >
                                                         Cancel
                                                     </button>
@@ -243,7 +327,9 @@ const AddEditModal = ({
                                                         type="submit"
                                                         className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-800 sm:ml-3 sm:w-auto"
                                                     >
-                                                        Add/Update
+                                                        {mode === "edit"
+                                                            ? "Update"
+                                                            : "Add"}
                                                     </button>
                                                 </div>
                                             </form>

@@ -7,7 +7,10 @@ export default async function handler(
 ) {
     try {
         if (request.method === "GET") {
-            const cars = await prisma.car.findMany();
+            const cars = await prisma.car.findMany({
+                orderBy: [{ id: "asc" }],
+            });
+            response.setHeader("Cache-Control", "no-store");
             return response.status(200).json(cars);
         }
 
@@ -39,7 +42,9 @@ export default async function handler(
         }
 
         if (request.method === "PATCH") {
+            console.log("456");
             const { id, car_color, price, availability } = request.body;
+            console.log(request.body);
 
             const updatedCar = await prisma.car.update({
                 where: { id },
