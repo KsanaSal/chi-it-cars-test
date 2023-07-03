@@ -29,6 +29,24 @@ const AddEditModal = ({
     const [carVIN, setCarVIN] = useState("");
     const [price, setPrice] = useState("");
     const [availability, setAvailability] = useState(false);
+    const [isFormValid, setIsFormValid] = useState(false);
+    const [isVinUnique, setIsVinUnique] = useState(false);
+
+    useEffect(() => {
+        const validateForm = () => {
+            const requiredFields = [
+                carCompany,
+                carModel,
+                carColor,
+                carModelYear,
+                carVIN,
+                price,
+            ];
+            const isFormValid = requiredFields.every((field) => field !== "");
+            setIsFormValid(isFormValid);
+        };
+        validateForm();
+    }, [carColor, carCompany, carModel, carModelYear, carVIN, price]);
 
     console.log(mode);
     useEffect(() => {
@@ -145,7 +163,10 @@ const AddEditModal = ({
             <Dialog
                 as="div"
                 className="relative z-10"
-                onClose={() => hideModal()}
+                onClose={() => {
+                    hideModal();
+                    resetData();
+                }}
             >
                 <Transition.Child
                     as={Fragment}
@@ -177,6 +198,7 @@ const AddEditModal = ({
                                         className="rounded-md bg-white text-gray-400 hover:text-gray-500"
                                         onClick={() => {
                                             hideModal();
+                                            resetData();
                                         }}
                                     >
                                         <XMarkIcon
@@ -325,7 +347,8 @@ const AddEditModal = ({
                                                     </button>
                                                     <button
                                                         type="submit"
-                                                        className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-800 sm:ml-3 sm:w-auto"
+                                                        disabled={!isFormValid}
+                                                        className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-800 sm:ml-3 sm:w-auto disabled:bg-slate-300"
                                                     >
                                                         {mode === "edit"
                                                             ? "Update"
