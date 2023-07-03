@@ -18,6 +18,11 @@ const Search = ({ searchHandler, label, placeholder }: IProps) => {
                 setSearchValue(inputValue);
                 searchHandler(inputValue);
             }
+        } else if (label.toLowerCase().includes("price")) {
+            if (/^\d*\.?\d{0,2}?$/.test(inputValue)) {
+                setSearchValue(inputValue);
+                searchHandler(inputValue);
+            }
         } else {
             setSearchValue(inputValue);
             searchHandler(inputValue);

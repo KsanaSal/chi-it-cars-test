@@ -25,6 +25,14 @@ export default async function handler(
                 availability,
             } = request.body;
             console.log(request.body);
+            const existingCar = await prisma.car.findUnique({
+                where: { car_vin },
+            });
+            if (existingCar) {
+                return response
+                    .status(400)
+                    .json({ error: "Car VIN already exists" });
+            }
 
             const createdCar = await prisma.car.create({
                 data: {
