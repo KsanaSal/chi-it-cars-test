@@ -21,6 +21,7 @@ export default async function handler(
                 price,
                 availability,
             } = request.body;
+            console.log(request.body);
 
             const createdCar = await prisma.car.create({
                 data: {
