@@ -24,7 +24,6 @@ export default async function handler(
                 price,
                 availability,
             } = request.body;
-            console.log(request.body);
             const existingCar = await prisma.car.findUnique({
                 where: { car_vin },
             });
@@ -50,9 +49,7 @@ export default async function handler(
         }
 
         if (request.method === "PATCH") {
-            console.log("456");
             const { id, car_color, price, availability } = request.body;
-            console.log(request.body);
 
             const updatedCar = await prisma.car.update({
                 where: { id },
@@ -64,8 +61,6 @@ export default async function handler(
 
         if (request.method === "DELETE") {
             const { id } = request.query;
-            console.log(id);
-            console.log(request);
 
             await prisma.car.delete({
                 where: { id: parseInt(id as string, 10) },

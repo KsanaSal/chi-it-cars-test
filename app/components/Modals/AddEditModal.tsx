@@ -1,9 +1,6 @@
 import { ChangeEvent, FormEvent, Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import {
-    ExclamationTriangleIcon,
-    XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ICar } from "@/app/models/car.interface";
 
 interface IProps {
@@ -50,7 +47,6 @@ const AddEditModal = ({
 
     console.log(mode);
     useEffect(() => {
-        console.log("first");
         if (mode === "edit") {
             setCarCompany(car.car);
             setCarModel(car.car_model);
@@ -93,7 +89,6 @@ const AddEditModal = ({
 
     const handleAdd = async (ev: FormEvent<HTMLFormElement>) => {
         ev.preventDefault();
-        console.log(ev);
         try {
             const response = await fetch("/api/cars", {
                 method: "POST",
@@ -110,7 +105,6 @@ const AddEditModal = ({
                     availability,
                 }),
             });
-            console.log(response);
             if (response.ok) {
                 getData();
                 resetData();
@@ -128,7 +122,6 @@ const AddEditModal = ({
     const handleYearInputChange = (ev: ChangeEvent<HTMLInputElement>) => {
         const inputValue = ev.target.value;
         const year = new Date().getFullYear();
-        console.log(year);
         if (/^\d*$/.test(inputValue)) {
             setCarModelYear(inputValue);
             if (parseInt(inputValue) > year) {
@@ -140,7 +133,6 @@ const AddEditModal = ({
     const handlePriceInputChange = (ev: ChangeEvent<HTMLInputElement>) => {
         const inputValue = ev.target.value;
         const year = new Date().getFullYear();
-        console.log(year);
         if (/^\d*\.?\d{0,2}?$/.test(inputValue)) {
             setPrice(inputValue);
             if (parseInt(inputValue) < 0) {
@@ -151,7 +143,6 @@ const AddEditModal = ({
 
     const handleEdit = async (ev: FormEvent<HTMLFormElement>) => {
         ev.preventDefault();
-        console.log("123");
         try {
             const response = await fetch("/api/cars", {
                 method: "PATCH",

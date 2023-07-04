@@ -100,8 +100,6 @@ const CarsTable = ({
                     (parseFloat(car.price.slice(1)) <= parseInt(endPrice) ||
                         endPrice === "")
             );
-            console.log(filteredCars);
-            console.log(company);
             setFilterCars(filteredCars);
             setCurrentPage(1);
         } else {

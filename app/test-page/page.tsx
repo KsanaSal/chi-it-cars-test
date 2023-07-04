@@ -13,7 +13,6 @@ export default function TestPage() {
                     .then((res) => {
                         console.log(res);
                     });
-                console.log(res);
             });
     };
     return (

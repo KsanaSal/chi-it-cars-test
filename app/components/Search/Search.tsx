@@ -13,7 +13,6 @@ const Search = ({ searchHandler, label, placeholder }: IProps) => {
     const handleInputChange = (ev: ChangeEvent<HTMLInputElement>) => {
         const inputValue = ev.target.value;
         if (label.toLowerCase().includes("year")) {
-            console.log(inputValue);
             if (/^\d*$/.test(inputValue)) {
                 setSearchValue(inputValue);
                 searchHandler(inputValue);

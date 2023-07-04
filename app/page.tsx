@@ -1,7 +1,5 @@
 "use client";
-// import Image from "next/image";
 import { useState } from "react";
-// import Pagination from "./components/Pagination/Pagination";
 import Search from "./components/Search/Search";
 import CarsTable from "./components/Table/CarsTable";
 
@@ -15,7 +13,6 @@ export default function Home() {
     const [selectAvailable, setSelectAvailable] = useState("All");
     const [selectStartPrice, setSelectStartPrice] = useState("");
     const [selectEndPrice, setSelectEndPrice] = useState("");
-    
 
     return (
         <main className="px-5 py-10 flex flex-col gap-5">
