@@ -117,7 +117,6 @@ const Pagination = ({
                     name="availability"
                     value={carsPerPage}
                     onChange={(e) => {
-                        console.log(e.target.value);
                         setCarsPerPage(parseInt(e.target.value));
                     }}
                     className="mt-2 block w-full h-10 shadow-sm rounded-md border-0 py-2 pl-3 pr-10 text-gray-700 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 text-sm sm:text-base lg:text-lg sm:leading-6"

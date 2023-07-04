@@ -6,6 +6,14 @@ export default async function handler(
     response: NextApiResponse
 ) {
     try {
+        const getUniqueId = async (): Promise<any> => {
+            const id = Math.floor(Math.random() * 100000000);
+            const existCarById = await prisma.car.findUnique({ where: { id } });
+            if (existCarById) {
+                return getUniqueId();
+            }
+            return id;
+        };
         if (request.method === "GET") {
             const cars = await prisma.car.findMany({
                 orderBy: [{ id: "asc" }],
@@ -31,10 +39,10 @@ export default async function handler(
                     .status(400)
                     .json({ error: "Car VIN already exists" });
             }
-
+            const id = await getUniqueId();
             const createdCar = await prisma.car.create({
                 data: {
-                    id: Math.floor(Math.random() * 10000000000),
+                    id,
                     car,
                     car_model,
                     car_color,

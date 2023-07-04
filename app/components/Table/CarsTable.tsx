@@ -64,7 +64,6 @@ const CarsTable = ({
         setCurrentCar(carCard);
         setIsAddEditModalOpen(true);
         setMode("edit");
-        console.log("edit", carCard);
     };
 
     const getData = async () => {
