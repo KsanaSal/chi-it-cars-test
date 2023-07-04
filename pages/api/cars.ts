@@ -10,7 +10,6 @@ export default async function handler(
             const cars = await prisma.car.findMany({
                 orderBy: [{ id: "asc" }],
             });
-            response.setHeader("Cache-Control", "no-store");
             return response.status(200).json(cars);
         }
 
