@@ -29,10 +29,10 @@ const Search = ({ searchHandler, label, placeholder }: IProps) => {
     };
 
     return (
-        <div>
+        <div className="w-60 sm:w-40 lg:w-56">
             <label
                 htmlFor="search"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm lg:text-lg font-medium leading-6 text-gray-900"
             >
                 {label}
             </label>
@@ -49,7 +49,7 @@ const Search = ({ searchHandler, label, placeholder }: IProps) => {
                     value={searchValue}
                     name="search"
                     id="search"
-                    className="block w-40 h-10 rounded-md border-0 py-2 pl-10 pr-2 text-gray-700 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full h-10 rounded-md border-0 py-2 pl-10 pr-2 text-sm lg:text-lg text-gray-700 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     placeholder={placeholder}
                 />
             </div>

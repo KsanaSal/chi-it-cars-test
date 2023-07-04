@@ -119,10 +119,10 @@ const CarsTable = ({
     ]);
 
     return (
-        <div className="px-4 sm:px-6 lg:px-8">
-            <div className="sm:flex sm:items-center">
+        <div className="px-2 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between">
                 <div className="sm:flex-auto">
-                    <h1 className="text-3xl font-semibold leading-9 text-gray-900">
+                    <h1 className="text-3xl sm:text-[36px] lg:text-[40px] font-semibold leading-9 text-gray-900">
                         Cars
                     </h1>
                 </div>
@@ -133,7 +133,7 @@ const CarsTable = ({
                             setMode("add");
                         }}
                         type="button"
-                        className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm sm:text-base lg:text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
                         Add car
                     </button>
@@ -145,52 +145,52 @@ const CarsTable = ({
                         <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
                             <table className="min-w-full divide-y divide-gray-300">
                                 <thead className="bg-lime-50">
-                                    <tr>
+                                    <tr className="text-sm sm:text-base lg:text-lg font-semibold">
                                         <th
                                             scope="col"
-                                            className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900 sm:pl-6"
+                                            className="py-3.5 pl-4 pr-3 text-left text-gray-900 sm:pl-6"
                                         >
                                             Company
                                         </th>
                                         <th
                                             scope="col"
-                                            className="px-3 py-3.5 text-left text-base font-semibold text-gray-900"
+                                            className="px-3 py-3.5 text-left text-gray-900"
                                         >
                                             Model
                                         </th>
                                         <th
                                             scope="col"
-                                            className="px-3 py-3.5 text-left text-base font-semibold text-gray-900"
+                                            className="px-3 py-3.5 text-left text-gray-900"
                                         >
                                             VIN
                                         </th>
                                         <th
                                             scope="col"
-                                            className="px-3 py-3.5 text-left text-base font-semibold text-gray-900"
+                                            className="px-3 py-3.5 text-left text-gray-900"
                                         >
                                             Color
                                         </th>
                                         <th
                                             scope="col"
-                                            className="px-3 py-3.5 text-left text-base font-semibold text-gray-900"
+                                            className="px-3 py-3.5 text-left text-gray-900"
                                         >
                                             Year
                                         </th>
                                         <th
                                             scope="col"
-                                            className="px-3 py-3.5 text-left text-base font-semibold text-gray-900"
+                                            className="px-3 py-3.5 text-left text-gray-900"
                                         >
                                             Price
                                         </th>
                                         <th
                                             scope="col"
-                                            className="px-3 py-3.5 text-left text-base font-semibold text-gray-900"
+                                            className="px-3 py-3.5 text-left text-gray-900"
                                         >
                                             Availability
                                         </th>
                                         <th
                                             scope="col"
-                                            className="px-3 py-3.5 text-left text-base font-semibold text-gray-900"
+                                            className="px-3 py-3.5 text-left text-gray-900"
                                         >
                                             Actions
                                         </th>
@@ -199,26 +199,29 @@ const CarsTable = ({
                                 <tbody className="divide-y divide-gray-200 bg-white">
                                     {currentCars.length > 0 &&
                                         currentCars.map((car) => (
-                                            <tr key={car.id}>
-                                                <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                            <tr
+                                                key={car.id}
+                                                className="text-xs sm:text-sm lg:text-base"
+                                            >
+                                                <td className="whitespace-nowrap py-4 pl-4 pr-3 font-medium text-gray-900 sm:pl-6">
                                                     {car.car}
                                                 </td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
+                                                <td className="whitespace-nowrap px-3 py-4 text-gray-700">
                                                     {car.car_model}
                                                 </td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
+                                                <td className="whitespace-nowrap px-3 py-4 text-gray-700">
                                                     {car.car_vin}
                                                 </td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
+                                                <td className="whitespace-nowrap px-3 py-4 text-gray-700">
                                                     {car.car_color}
                                                 </td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
+                                                <td className="whitespace-nowrap px-3 py-4 text-gray-700">
                                                     {car.car_model_year}
                                                 </td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
+                                                <td className="whitespace-nowrap px-3 py-4 text-gray-700">
                                                     {car.price}
                                                 </td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm flex justify-center">
+                                                <td className="whitespace-nowrap px-3 py-4 flex justify-center">
                                                     {car.availability ? (
                                                         <CheckIcon
                                                             className="h-5 w-5 text-green-600"

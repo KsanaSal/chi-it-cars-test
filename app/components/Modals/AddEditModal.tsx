@@ -45,7 +45,6 @@ const AddEditModal = ({
         validateForm();
     }, [carColor, carCompany, carModel, carModelYear, carVIN, price]);
 
-    console.log(mode);
     useEffect(() => {
         if (mode === "edit") {
             setCarCompany(car.car);

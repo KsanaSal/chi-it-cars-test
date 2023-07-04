@@ -16,7 +16,7 @@ export default function Home() {
 
     return (
         <main className="px-5 py-10 flex flex-col gap-5">
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2 px-2 sm:px-6 lg:px-8">
                 <Search
                     searchHandler={setSelectCompany}
                     label="Company"
@@ -37,10 +37,10 @@ export default function Home() {
                     label="VIN"
                     placeholder="VIN"
                 />
-                <div>
+                <div className="w-60 sm:w-40 lg:w-56">
                     <label
                         htmlFor="availability"
-                        className="block text-sm font-medium leading-6 text-gray-900"
+                        className="block text-sm lg:text-lg font-medium leading-6 text-gray-900"
                     >
                         Availability
                     </label>
@@ -49,7 +49,7 @@ export default function Home() {
                         name="availability"
                         value={selectAvailable}
                         onChange={(e) => setSelectAvailable(e.target.value)}
-                        className="mt-2 block w-40 h-10 shadow-sm rounded-md border-0 py-2 pl-3 pr-10 text-gray-700 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        className="mt-2 block w-full h-10 shadow-sm rounded-md border-0 py-2 pl-3 pr-10 text-sm lg:text-lg text-gray-700 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     >
                         <option>All</option>
                         <option>Available</option>
@@ -57,7 +57,7 @@ export default function Home() {
                     </select>
                 </div>
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2 px-2 sm:px-6 lg:px-8">
                 <Search
                     searchHandler={setSelectStartYear}
                     label="Start year"
