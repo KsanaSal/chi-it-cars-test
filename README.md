@@ -1,6 +1,15 @@
+# Project Catalog of Cars
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Technologies
+
+NextJs, Prisma, PostgreSQL, Vercel, Tailwindcss
+
 ## Getting Started
+
+### Create a local .env based on our repo's example:
+cp .example.env .env
 
 First, run the development server:
 
@@ -18,17 +27,41 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+## Description of the project
 
-To learn more about Next.js, take a look at the following resources:
+ To implement this the project was used [https://myfakeapi.com/api/cars/](https://myfakeapi.com/api/cars/) as initial data.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+A small backend was created using Prisma and deployed to Vercel.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+The project was made according to the technical specifications:
 
-## Deploy on Vercel
+1. The task is to develop the page that will contain table with cars list. Table should contain listed columns. Table should use pagination locally. Search on top of the table should work accross all entries, not only listed page.
+  - Company
+  - Model
+  - VIN
+  - Color
+  - Year
+  - Price
+  - Availability
+  - Actions columns
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. Actions column should contain dropdown with listed actions. Each option should open respected modal window.
+  - Edit
+  - Delete
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+3. Edit modal should contain all data for selected car, but only some fields should be editable
+  - Disabled:
+    - Company
+    - Model
+    - VIN
+    - Year
+  - Enabled:
+    - Color
+    - Price
+    - Availability
+
+4. Delete modal should contain question is user sure he wants to perform this action.
+
+5. Page should contain "Add car" button that opens add modal. Add modal should be similar to Edit modal, but all fields enabled and empty by default
+
+6. All user actions should affect the table. Data should be saved between page reloads
