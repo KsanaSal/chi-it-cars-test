@@ -202,7 +202,7 @@ const AddEditModal = ({
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
                             <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
-                                <div className="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
+                                <div className="absolute right-0 sm:right-0 top-0 pr-4 pt-4 sm:block">
                                     <button
                                         type="button"
                                         className="rounded-md bg-white text-gray-400 hover:text-gray-500"
@@ -229,14 +229,14 @@ const AddEditModal = ({
                                         </Dialog.Title>
                                         <div className="mt-2">
                                             <form
-                                                className="flex flex-col gap-3 w-[450px]"
+                                                className="flex flex-col gap-3 w-full sm:w-[450px]"
                                                 onSubmit={(e) =>
                                                     mode === "edit"
                                                         ? handleEdit(e)
                                                         : handleAdd(e)
                                                 }
                                             >
-                                                <label className="flex gap-1 text-gray-900 font-semibold">
+                                                <label className="flex flex-col sm:flex-row items-center sm:items-start gap-1 text-gray-900 font-semibold">
                                                     Car Company:
                                                     <input
                                                         readOnly={
@@ -257,7 +257,7 @@ const AddEditModal = ({
                                                         }
                                                     />
                                                 </label>
-                                                <label className="flex gap-1 text-gray-900 font-semibold">
+                                                <label className="flex flex-col sm:flex-row items-center sm:items-start gap-1 text-gray-900 font-semibold">
                                                     Car Model:
                                                     <input
                                                         readOnly={
@@ -278,7 +278,7 @@ const AddEditModal = ({
                                                         }
                                                     />
                                                 </label>
-                                                <label className="flex gap-1 text-gray-900 font-semibold">
+                                                <label className="flex flex-col sm:flex-row items-center sm:items-start gap-1 text-gray-900 font-semibold">
                                                     Car Color:
                                                     <input
                                                         className="text-sm font-normal w-60 py-1 px-2 border border-gray-200 rounded-md placeholder:text-gray-400"
@@ -292,7 +292,7 @@ const AddEditModal = ({
                                                         }
                                                     />
                                                 </label>
-                                                <label className="flex gap-1 text-gray-900 font-semibold">
+                                                <label className="flex flex-col sm:flex-row items-center sm:items-start gap-1 text-gray-900 font-semibold">
                                                     Car Model Year:
                                                     <input
                                                         readOnly={
@@ -313,7 +313,7 @@ const AddEditModal = ({
                                                         }
                                                     />
                                                 </label>
-                                                <label className="flex gap-1 text-gray-900 font-semibold">
+                                                <label className="flex flex-col sm:flex-row items-center sm:items-start gap-1 text-gray-900 font-semibold">
                                                     Car VIN:
                                                     <div className="flex flex-col">
                                                         <input
@@ -345,7 +345,7 @@ const AddEditModal = ({
                                                         )}
                                                     </div>
                                                 </label>
-                                                <label className="flex gap-1 text-gray-900 font-semibold">
+                                                <label className="flex flex-col sm:flex-row items-center sm:items-start gap-1 text-gray-900 font-semibold">
                                                     Price $:
                                                     <input
                                                         className="text-sm font-normal w-60 py-1 px-2 border border-gray-200 rounded-md placeholder:text-gray-400"
@@ -359,7 +359,7 @@ const AddEditModal = ({
                                                         }
                                                     />
                                                 </label>
-                                                <label className="flex gap-1 text-gray-900 items-center font-semibold">
+                                                <label className="flex  gap-1 text-gray-900 items-center font-semibold">
                                                     Availability:
                                                     <input
                                                         className="w-4 h-4"
@@ -373,7 +373,7 @@ const AddEditModal = ({
                                                     />
                                                 </label>
 
-                                                <div className="mt-5 sm:mt-4 flex justify-end">
+                                                <div className="mt-5 w-[240px] sm:w-full sm:mt-4 flex flex-col gap-2 sm:flex-row justify-center items-center sm:items-end sm:justify-end">
                                                     <button
                                                         type="button"
                                                         className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-lime-300 hover:bg-lime-50 sm:mt-0 sm:w-auto"
